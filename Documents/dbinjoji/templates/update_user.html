@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Update User{% endblock %}
+
+{% block content %}
+<!-- update_user.html -->
+<h2>Update Users</h2>
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="flash {{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+<form id="update-user-form" action="{{ url_for('auth.update_user_by_id') }}" method="POST">
+    <label for="user_id">User ID:</label>
+    <input type="text" id="user_id" name="user_id" required><br>
+    <label for="username">New Username:</label>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">New Password:</label>
+    <input type="password" id="password" name="password"><br>
+    <label for="role">New Role:</label>
+    <select id="role" name="role">
+        <option value="SUPER">Super</option>
+        <option value="ADMIN">Admin</option>
+        <option value="USER" selected>User</option>
+    </select><br>
+    <button type="submit">Update User</button>
+</form>
+{% endblock %}

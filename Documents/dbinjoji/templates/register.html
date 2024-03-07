@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}User Registration{% endblock %}
+
+{% block content %}
+<h2>User Registration</h2>
+{% if message %}
+<p style="color: red;">{{ message }}</p>
+{% endif %}
+<form action="{{ url_for('auth.register') }}" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <label for="role">Role:</label>
+    <select id="role" name="role">
+        <option value="SUPER">Super</option>
+        <option value="ADMIN">Admin</option>
+        <option value="USER" selected>User</option>
+    </select><br><br>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

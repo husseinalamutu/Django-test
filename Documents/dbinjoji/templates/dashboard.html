@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<script>
+    // Store token in localStorage after login
+    const token = response.data.token; // Replace with your response data structure
+    localStorage.setItem('token', token);
+
+    // Make API requests with the authorization header
+    fetch('/dashboard', {
+    headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
+</script>
+
+<h2>Welcome to the Dashboard</h2>
+<p>You are logged in.</p>
+<ul>
+    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+    <li>
+        <form action="{{ url_for('auth.get_user_by_id') }}" method="POST">
+            <label for="user_id">User ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+            <button type="submit">View User</button>
+        </form>             
+    </li>
+    <li><a href="{{ url_for('auth.update_user_by_id') }}">Update User</a></li>
+</ul>
+{% endblock %}

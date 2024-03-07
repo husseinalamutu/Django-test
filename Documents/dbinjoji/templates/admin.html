@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<script>
+    // Extract token from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token) {
+        // Store token in localStorage
+        localStorage.setItem('token', token);
+    }
+</script>
+
+<h2>Welcome to the Admin Dashboard</h2>
+<p>You are logged in.</p>
+<ul>
+    <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+    <li>
+        <a href="{{ url_for('auth.get_all_users') }}">View All Users</a>
+    </li>
+    <li>
+        <form action="{{ url_for('auth.get_user_by_id') }}" method="POST">
+            <label for="user_id">User ID:</label>
+            <input type="number" id="user_id" name="user_id" required>
+            <button type="submit">View User</button>
+        </form>             
+    </li>
+    <li><a href="{{ url_for('auth.update_user_by_id') }}">Update User</a></li>
+</ul>
+{% endblock %}
